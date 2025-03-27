@@ -57,6 +57,7 @@ const ProductCard = ({ id, name, price, image, category, rating }: ProductCardPr
           <button 
             onClick={handleWishlistToggle}
             className="absolute top-2 right-2 p-1.5 rounded-full bg-white/80 hover:bg-white shadow-sm z-10"
+            aria-label={isInWishlist(id) ? "Remove from wishlist" : "Add to wishlist"}
           >
             <Heart 
               size={18} 
@@ -89,6 +90,7 @@ const ProductCard = ({ id, name, price, image, category, rating }: ProductCardPr
               onClick={handleAddToCart} 
               disabled={isAddingToCart}
               className="bg-primary hover:bg-primary/90"
+              aria-label="Add to cart"
             >
               {isAddingToCart ? (
                 <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-1"></span>

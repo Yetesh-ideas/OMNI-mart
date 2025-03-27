@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Cart from "./pages/Cart";
 import NotFound from "./pages/NotFound";
+import ProductDetail from "./pages/ProductDetail";
 import { UserProvider } from "./contexts/UserContext";
 import { CartProvider } from "./contexts/CartContext";
 import { WishlistProvider } from "./contexts/WishlistContext";
@@ -28,8 +29,7 @@ const App = () => (
                 <Route path="/" element={<Index />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/cart" element={<Cart />} />
-                <Route path="/products" element={<NotFound />} />
-                <Route path="/product/:id" element={<NotFound />} />
+                <Route path="/product/:id" element={<ProductDetail />} />
                 <Route path="/category/:category" element={<NotFound />} />
                 <Route path="/search" element={<NotFound />} />
                 <Route path="/wishlist" element={<Wishlist />} />

@@ -31,6 +31,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const savedCart = localStorage.getItem(`omnistore_cart_${user.id}`);
       if (savedCart) {
         setCartItems(JSON.parse(savedCart));
+      } else {
+        setCartItems([]);
       }
     } else {
       // When logged out, clear cart from memory
@@ -51,6 +53,12 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return;
     }
 
+    const product = products.find(p => p.id === productId);
+    if (!product) {
+      toast.error("Product not found");
+      return;
+    }
+
     setCartItems(prevItems => {
       const existingItem = prevItems.find(item => item.id === productId);
       
@@ -67,19 +75,24 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     });
 
-    const product = products.find(p => p.id === productId);
-    toast.success(`${product?.name || 'Product'} added to cart!`);
+    toast.success(`${product.name.substring(0, 30)}... added to cart!`);
   };
 
   const removeFromCart = (productId: number) => {
-    if (!user) return;
+    if (!user) {
+      toast.error("Please sign in to modify your cart");
+      return;
+    }
     
     setCartItems(prevItems => prevItems.filter(item => item.id !== productId));
     toast.success("Item removed from cart");
   };
 
   const updateQuantity = (productId: number, change: number) => {
-    if (!user) return;
+    if (!user) {
+      toast.error("Please sign in to modify your cart");
+      return;
+    }
     
     setCartItems(prevItems => 
       prevItems.map(item => {
@@ -93,7 +106,10 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const clearCart = () => {
-    if (!user) return;
+    if (!user) {
+      toast.error("Please sign in to access your cart");
+      return;
+    }
     
     setCartItems([]);
     toast.success("Cart cleared");

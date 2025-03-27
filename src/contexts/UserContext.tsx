@@ -95,8 +95,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const logout = () => {
     setUser(null);
     localStorage.removeItem('omnistore_user');
-    localStorage.removeItem('omnistore_cart');
-    localStorage.removeItem('omnistore_wishlist');
+    // Don't remove cart and wishlist data to preserve them for when the user logs back in
   };
 
   return (

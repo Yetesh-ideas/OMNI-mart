@@ -24,6 +24,8 @@ export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       const savedWishlist = localStorage.getItem(`omnistore_wishlist_${user.id}`);
       if (savedWishlist) {
         setWishlistItems(JSON.parse(savedWishlist));
+      } else {
+        setWishlistItems([]);
       }
     } else {
       // When logged out, clear wishlist from memory
@@ -47,12 +49,15 @@ export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     if (!wishlistItems.includes(productId)) {
       setWishlistItems(prev => [...prev, productId]);
       const product = products.find(p => p.id === productId);
-      toast.success(`${product?.name || 'Product'} added to wishlist!`);
+      toast.success(`${product?.name.substring(0, 30)}... added to wishlist!`);
     }
   };
 
   const removeFromWishlist = (productId: number) => {
-    if (!user) return;
+    if (!user) {
+      toast.error("Please sign in to modify your wishlist");
+      return;
+    }
     
     setWishlistItems(prev => prev.filter(id => id !== productId));
     toast.success("Item removed from wishlist");
@@ -63,7 +68,10 @@ export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   const clearWishlist = () => {
-    if (!user) return;
+    if (!user) {
+      toast.error("Please sign in to access your wishlist");
+      return;
+    }
     
     setWishlistItems([]);
     toast.success("Wishlist cleared");
