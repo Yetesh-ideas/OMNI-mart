@@ -8,6 +8,7 @@ import products from "@/data/products";
 import { useWishlist } from "@/contexts/WishlistContext";
 import { useCart } from "@/contexts/CartContext";
 import { useUser } from "@/contexts/UserContext";
+import { formatPriceInINR } from "@/utils/currency";
 
 const Wishlist = () => {
   const { wishlistItems, removeFromWishlist } = useWishlist();
@@ -95,7 +96,7 @@ const Wishlist = () => {
                   </Link>
                 </h3>
                 
-                <p className="text-lg font-bold mt-2">${product.price.toFixed(2)}</p>
+                <p className="text-lg font-bold mt-2">{formatPriceInINR(product.price)}</p>
                 
                 <Button 
                   onClick={() => {

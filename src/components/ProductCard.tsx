@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
+import { formatPriceInINR } from "@/utils/currency";
 
 interface ProductCardProps {
   id: number;
@@ -84,7 +85,7 @@ const ProductCard = ({ id, name, price, image, category, rating }: ProductCardPr
           </div>
           <p className="text-muted-foreground text-sm mt-1">{category}</p>
           <div className="flex justify-between items-center mt-3">
-            <span className="font-bold text-lg">${price.toFixed(2)}</span>
+            <span className="font-bold text-lg">{formatPriceInINR(price)}</span>
             <Button 
               size="sm" 
               onClick={handleAddToCart} 

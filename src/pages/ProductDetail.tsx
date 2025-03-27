@@ -12,6 +12,7 @@ import products from "@/data/products";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
 import { useUser } from "@/contexts/UserContext";
+import { formatPriceInINR } from "@/utils/currency";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -124,11 +125,11 @@ const ProductDetail = () => {
             
             <div className="mb-6">
               <div className="flex items-center mb-2">
-                <span className="text-3xl font-bold">${product.price.toFixed(2)}</span>
+                <span className="text-3xl font-bold">{formatPriceInINR(product.price)}</span>
                 {product.originalPrice && (
                   <>
                     <span className="text-lg text-muted-foreground line-through ml-3">
-                      ${product.originalPrice.toFixed(2)}
+                      {formatPriceInINR(product.originalPrice)}
                     </span>
                     <span className="ml-2 px-2 py-1 bg-red-100 text-red-800 text-xs font-medium rounded">
                       {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% OFF
@@ -309,7 +310,7 @@ const ProductDetail = () => {
                         ))}
                       </div>
                     </div>
-                    <p className="font-bold mt-2">${relatedProduct.price.toFixed(2)}</p>
+                    <p className="font-bold mt-2">{formatPriceInINR(relatedProduct.price)}</p>
                   </div>
                 </div>
               </Link>

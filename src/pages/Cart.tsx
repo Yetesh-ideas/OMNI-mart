@@ -8,6 +8,7 @@ import products from "@/data/products";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
 import { useUser } from "@/contexts/UserContext";
+import { formatPriceInINR, convertUSDtoINR } from "@/utils/currency";
 
 const Cart = () => {
   const { cartItems, removeFromCart, updateQuantity } = useCart();
@@ -43,6 +44,12 @@ const Cart = () => {
   const shipping = 4.99;
   const tax = subtotal * 0.1;
   const total = subtotal + shipping + tax;
+  
+  // Convert amounts to INR
+  const inrSubtotal = convertUSDtoINR(subtotal);
+  const inrShipping = convertUSDtoINR(shipping);
+  const inrTax = convertUSDtoINR(tax);
+  const inrTotal = convertUSDtoINR(total);
   
   if (!user) {
     return (
@@ -122,16 +129,16 @@ const Cart = () => {
                           {item.originalPrice && (
                             <div className="mt-1 flex items-center">
                               <span className="text-sm text-muted-foreground line-through mr-2">
-                                ${item.originalPrice.toFixed(2)}
+                                {formatPriceInINR(item.originalPrice)}
                               </span>
                               <span className="text-xs px-1.5 py-0.5 bg-red-100 text-red-800 rounded">
-                                Save ${(item.originalPrice - item.price).toFixed(2)}
+                                Save {formatPriceInINR(item.originalPrice - item.price)}
                               </span>
                             </div>
                           )}
                         </div>
                         <p className="text-base font-medium">
-                          ${(item.price * item.quantity).toFixed(2)}
+                          {formatPriceInINR(item.price * item.quantity)}
                         </p>
                       </div>
                       
@@ -185,23 +192,23 @@ const Cart = () => {
                 <div className="space-y-4">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Subtotal</span>
-                    <span>${subtotal.toFixed(2)}</span>
+                    <span>{formatPriceInINR(subtotal)}</span>
                   </div>
                   
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Shipping</span>
-                    <span>${shipping.toFixed(2)}</span>
+                    <span>{formatPriceInINR(shipping)}</span>
                   </div>
                   
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Tax</span>
-                    <span>${tax.toFixed(2)}</span>
+                    <span>{formatPriceInINR(tax)}</span>
                   </div>
                   
                   <div className="border-t pt-4">
                     <div className="flex justify-between font-bold">
                       <span>Total</span>
-                      <span>${total.toFixed(2)}</span>
+                      <span>{formatPriceInINR(total)}</span>
                     </div>
                   </div>
                   

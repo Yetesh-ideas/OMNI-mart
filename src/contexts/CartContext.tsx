@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from "sonner";
 import { useUser } from './UserContext';
 import products from '@/data/products';
+import { convertUSDtoINR } from '@/utils/currency';
 
 export interface CartItem {
   id: number;
@@ -17,6 +18,7 @@ interface CartContextType {
   clearCart: () => void;
   getCartCount: () => number;
   getCartTotal: () => number;
+  getCartTotalINR: () => number;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -126,6 +128,11 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }, 0);
   };
 
+  const getCartTotalINR = () => {
+    const usdTotal = getCartTotal();
+    return convertUSDtoINR(usdTotal);
+  };
+
   return (
     <CartContext.Provider value={{
       cartItems,
@@ -134,7 +141,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       updateQuantity,
       clearCart,
       getCartCount,
-      getCartTotal
+      getCartTotal,
+      getCartTotalINR
     }}>
       {children}
     </CartContext.Provider>
