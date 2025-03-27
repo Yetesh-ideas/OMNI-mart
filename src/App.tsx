@@ -14,17 +14,16 @@ import { CartProvider } from "./contexts/CartContext";
 import { WishlistProvider } from "./contexts/WishlistContext";
 import Wishlist from "./pages/Wishlist";
 
+// Create a new query client instance
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <UserProvider>
-        <CartProvider>
-          <WishlistProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
+  <BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <UserProvider>
+          <CartProvider>
+            <WishlistProvider>
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/auth" element={<Auth />} />
@@ -37,12 +36,14 @@ const App = () => (
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
-            </BrowserRouter>
-          </WishlistProvider>
-        </CartProvider>
-      </UserProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
+              <Toaster />
+              <Sonner />
+            </WishlistProvider>
+          </CartProvider>
+        </UserProvider>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </BrowserRouter>
 );
 
 export default App;
