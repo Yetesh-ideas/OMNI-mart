@@ -3,7 +3,8 @@ import { Button } from "@/components/ui/button";
 import { ShoppingCart, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { toast } from "sonner";
+import { useCart } from "@/contexts/CartContext";
+import { useWishlist } from "@/contexts/WishlistContext";
 
 interface ProductCardProps {
   id: number;
@@ -16,23 +17,32 @@ interface ProductCardProps {
 
 const ProductCard = ({ id, name, price, image, category, rating }: ProductCardProps) => {
   const [isAddingToCart, setIsAddingToCart] = useState(false);
+  const { addToCart } = useCart();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     setIsAddingToCart(true);
     
-    // Simulate adding to cart
+    // Add to cart using context
+    addToCart(id);
+    
+    // Show loading state briefly for better UX
     setTimeout(() => {
       setIsAddingToCart(false);
-      toast.success(`${name} added to cart!`);
     }, 600);
   };
 
-  const handleAddToWishlist = (e: React.MouseEvent) => {
+  const handleWishlistToggle = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    toast.success(`${name} added to wishlist!`);
+    
+    if (isInWishlist(id)) {
+      removeFromWishlist(id);
+    } else {
+      addToWishlist(id);
+    }
   };
 
   return (
@@ -45,10 +55,13 @@ const ProductCard = ({ id, name, price, image, category, rating }: ProductCardPr
             className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300"
           />
           <button 
-            onClick={handleAddToWishlist}
+            onClick={handleWishlistToggle}
             className="absolute top-2 right-2 p-1.5 rounded-full bg-white/80 hover:bg-white shadow-sm z-10"
           >
-            <Heart size={18} className="text-muted-foreground hover:text-red-500" />
+            <Heart 
+              size={18} 
+              className={`${isInWishlist(id) ? 'text-red-500 fill-red-500' : 'text-muted-foreground hover:text-red-500'}`}
+            />
           </button>
         </div>
         <div className="p-4">

@@ -1,212 +1,270 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Eye, EyeOff, Lock, Mail, User } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, User } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import Header from "@/components/Header";
 import { toast } from "sonner";
+import { useUser } from "@/contexts/UserContext";
 
 const Auth = () => {
+  const [tab, setTab] = useState("login");
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-  
-  const handleLogin = (e: React.FormEvent) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const { login, signup } = useUser();
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     
-    // Simulate login process
-    setTimeout(() => {
-      setLoading(false);
-      toast.success("Successfully logged in!");
-      // Would normally redirect to dashboard or homepage after login
-    }, 1500);
+    if (!email || !password) {
+      toast.error("Please enter all fields");
+      return;
+    }
+    
+    setIsLoading(true);
+    
+    try {
+      await login(email, password);
+      toast.success("Logged in successfully");
+      navigate("/");
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("Failed to log in");
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
-  
-  const handleSignup = (e: React.FormEvent) => {
+
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     
-    // Simulate signup process
-    setTimeout(() => {
-      setLoading(false);
-      toast.success("Account created successfully!");
-      // Would normally redirect to dashboard or homepage after signup
-    }, 1500);
+    if (!name || !email || !password) {
+      toast.error("Please enter all fields");
+      return;
+    }
+    
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters");
+      return;
+    }
+    
+    setIsLoading(true);
+    
+    try {
+      await signup(name, email, password);
+      toast.success("Account created successfully");
+      navigate("/");
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("Failed to create account");
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <div className="container max-w-screen-sm mx-auto px-4 py-12 animate-fade-in">
-      <Link to="/" className="inline-flex items-center text-2xl font-bold mb-8">
-        OMNI<span className="text-primary">store</span>
-      </Link>
-      
-      <Tabs defaultValue="login" className="w-full">
-        <TabsList className="grid grid-cols-2 w-full mb-8">
-          <TabsTrigger value="login">Sign In</TabsTrigger>
-          <TabsTrigger value="signup">Create Account</TabsTrigger>
-        </TabsList>
-        
-        <TabsContent value="login">
-          <Card>
-            <CardHeader>
-              <CardTitle>Welcome back</CardTitle>
-              <CardDescription>
-                Sign in to your OMNIstore account
-              </CardDescription>
-            </CardHeader>
-            <form onSubmit={handleLogin}>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                    <Input 
-                      id="email" 
-                      type="email" 
-                      placeholder="Enter your email" 
-                      className="pl-10" 
-                      required
-                    />
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+      <div className="container mx-auto px-4 py-12">
+        <Card className="max-w-md mx-auto">
+          <CardContent className="pt-6">
+            <Tabs defaultValue={tab} onValueChange={setTab} className="w-full">
+              <TabsList className="grid w-full grid-cols-2 mb-6">
+                <TabsTrigger value="login">Login</TabsTrigger>
+                <TabsTrigger value="signup">Sign Up</TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="login">
+                <form onSubmit={handleLogin} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email</Label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Input 
+                        id="email" 
+                        type="email" 
+                        placeholder="Email address" 
+                        className="pl-10"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </div>
                   </div>
-                </div>
-                
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center">
+                  
+                  <div className="space-y-2">
                     <Label htmlFor="password">Password</Label>
-                    <Link to="/forgot-password" className="text-xs text-primary hover:underline">
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Input 
+                        id="password" 
+                        type={showPassword ? "text" : "password"} 
+                        placeholder="Password" 
+                        className="pl-10"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                      <Button 
+                        type="button"
+                        variant="ghost" 
+                        size="icon" 
+                        className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8" 
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? (
+                          <EyeOff className="h-4 w-4" />
+                        ) : (
+                          <Eye className="h-4 w-4" />
+                        )}
+                      </Button>
+                    </div>
+                  </div>
+                  
+                  <div className="flex justify-end">
+                    <Button 
+                      variant="link" 
+                      className="px-0 text-sm" 
+                      onClick={() => toast.info("Reset password functionality would be implemented here")}
+                    >
                       Forgot password?
-                    </Link>
+                    </Button>
                   </div>
-                  <div className="relative">
-                    <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                    <Input 
-                      id="password" 
-                      type={showPassword ? "text" : "password"} 
-                      placeholder="Enter your password" 
-                      className="pl-10" 
-                      required
-                    />
-                    <button 
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)} 
-                      className="absolute right-3 top-3"
-                      aria-label={showPassword ? "Hide password" : "Show password"}
-                    >
-                      {showPassword ? (
-                        <EyeOff className="h-4 w-4 text-muted-foreground" />
-                      ) : (
-                        <Eye className="h-4 w-4 text-muted-foreground" />
-                      )}
-                    </button>
+                  
+                  <Button type="submit" className="w-full" disabled={isLoading}>
+                    {isLoading ? (
+                      <>
+                        <span className="mr-2 inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"></span>
+                        Logging in...
+                      </>
+                    ) : (
+                      "Log in"
+                    )}
+                  </Button>
+                  
+                  <div className="mt-4">
+                    <div className="relative">
+                      <div className="absolute inset-0 flex items-center">
+                        <span className="w-full border-t"></span>
+                      </div>
+                      <div className="relative flex justify-center text-xs uppercase">
+                        <span className="bg-card px-2 text-muted-foreground">
+                          Or continue with
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <div className="mt-4 grid grid-cols-2 gap-2">
+                      <Button variant="outline" type="button" disabled={isLoading}>
+                        Google
+                      </Button>
+                      <Button variant="outline" type="button" disabled={isLoading}>
+                        Facebook
+                      </Button>
+                    </div>
                   </div>
-                </div>
-                
-                <div className="flex items-center space-x-2">
-                  <Checkbox id="remember" />
-                  <Label htmlFor="remember" className="text-sm font-normal">Remember me</Label>
-                </div>
-              </CardContent>
+                </form>
+              </TabsContent>
               
-              <CardFooter>
-                <Button type="submit" className="w-full" disabled={loading}>
-                  {loading ? "Signing in..." : "Sign In"}
-                </Button>
-              </CardFooter>
-            </form>
-          </Card>
-        </TabsContent>
-        
-        <TabsContent value="signup">
-          <Card>
-            <CardHeader>
-              <CardTitle>Create an account</CardTitle>
-              <CardDescription>
-                Join OMNIstore and discover premium products
-              </CardDescription>
-            </CardHeader>
-            <form onSubmit={handleSignup}>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="signup-name">Full Name</Label>
-                  <div className="relative">
-                    <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                    <Input 
-                      id="signup-name" 
-                      type="text" 
-                      placeholder="Enter your full name" 
-                      className="pl-10" 
-                      required
-                    />
+              <TabsContent value="signup">
+                <form onSubmit={handleSignup} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="name">Full Name</Label>
+                    <div className="relative">
+                      <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Input 
+                        id="name" 
+                        type="text" 
+                        placeholder="Full name" 
+                        className="pl-10"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                      />
+                    </div>
                   </div>
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="signup-email">Email</Label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                    <Input 
-                      id="signup-email" 
-                      type="email" 
-                      placeholder="Enter your email" 
-                      className="pl-10" 
-                      required
-                    />
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="signup-email">Email</Label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Input 
+                        id="signup-email" 
+                        type="email" 
+                        placeholder="Email address" 
+                        className="pl-10"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </div>
                   </div>
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="signup-password">Password</Label>
-                  <div className="relative">
-                    <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                    <Input 
-                      id="signup-password" 
-                      type={showPassword ? "text" : "password"} 
-                      placeholder="Create a password" 
-                      className="pl-10" 
-                      required
-                    />
-                    <button 
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)} 
-                      className="absolute right-3 top-3"
-                      aria-label={showPassword ? "Hide password" : "Show password"}
-                    >
-                      {showPassword ? (
-                        <EyeOff className="h-4 w-4 text-muted-foreground" />
-                      ) : (
-                        <Eye className="h-4 w-4 text-muted-foreground" />
-                      )}
-                    </button>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="signup-password">Password</Label>
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Input 
+                        id="signup-password" 
+                        type={showPassword ? "text" : "password"} 
+                        placeholder="Password (min. 6 characters)" 
+                        className="pl-10"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                      <Button 
+                        type="button"
+                        variant="ghost" 
+                        size="icon" 
+                        className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8" 
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? (
+                          <EyeOff className="h-4 w-4" />
+                        ) : (
+                          <Eye className="h-4 w-4" />
+                        )}
+                      </Button>
+                    </div>
                   </div>
-                  <p className="text-muted-foreground text-xs mt-1">
-                    Password must be at least 8 characters long
-                  </p>
-                </div>
-                
-                <div className="flex items-center space-x-2">
-                  <Checkbox id="terms" required />
-                  <Label htmlFor="terms" className="text-sm font-normal">
-                    I agree to the{" "}
-                    <Link to="/terms" className="text-primary hover:underline">terms of service</Link>
-                    {" "}and{" "}
-                    <Link to="/privacy" className="text-primary hover:underline">privacy policy</Link>
-                  </Label>
-                </div>
-              </CardContent>
-              
-              <CardFooter>
-                <Button type="submit" className="w-full" disabled={loading}>
-                  {loading ? "Creating account..." : "Create Account"}
-                </Button>
-              </CardFooter>
-            </form>
-          </Card>
-        </TabsContent>
-      </Tabs>
+                  
+                  <div className="text-sm text-muted-foreground">
+                    By creating an account, you agree to our{" "}
+                    <Button variant="link" className="h-auto p-0 text-primary">
+                      Terms of Service
+                    </Button>{" "}
+                    and{" "}
+                    <Button variant="link" className="h-auto p-0 text-primary">
+                      Privacy Policy
+                    </Button>
+                  </div>
+                  
+                  <Button type="submit" className="w-full" disabled={isLoading}>
+                    {isLoading ? (
+                      <>
+                        <span className="mr-2 inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"></span>
+                        Creating account...
+                      </>
+                    ) : (
+                      "Create Account"
+                    )}
+                  </Button>
+                </form>
+              </TabsContent>
+            </Tabs>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };

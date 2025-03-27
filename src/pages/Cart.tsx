@@ -5,34 +5,26 @@ import { ShoppingCart, X, Plus, Minus, Heart, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import products from "@/data/products";
-import { useState } from "react";
-
-interface CartItem {
-  id: number;
-  quantity: number;
-}
+import { useCart } from "@/contexts/CartContext";
+import { useWishlist } from "@/contexts/WishlistContext";
+import { useUser } from "@/contexts/UserContext";
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    { id: 1, quantity: 1 },
-    { id: 3, quantity: 2 },
-  ]);
+  const { cartItems, removeFromCart, updateQuantity } = useCart();
+  const { addToWishlist } = useWishlist();
+  const { user } = useUser();
   
   const handleRemoveItem = (id: number) => {
-    setCartItems(cartItems.filter(item => item.id !== id));
+    removeFromCart(id);
   };
   
   const handleQuantityChange = (id: number, change: number) => {
-    setCartItems(cartItems.map(item => 
-      item.id === id 
-        ? { ...item, quantity: Math.max(1, item.quantity + change) } 
-        : item
-    ));
+    updateQuantity(id, change);
   };
   
   const moveToWishlist = (id: number) => {
-    handleRemoveItem(id);
-    // In a real app, we would add to wishlist here
+    addToWishlist(id);
+    removeFromCart(id);
   };
   
   const cartProducts = cartItems.map(item => {
@@ -51,6 +43,25 @@ const Cart = () => {
   const shipping = 4.99;
   const tax = subtotal * 0.1;
   const total = subtotal + shipping + tax;
+  
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="container mx-auto px-4 py-12">
+          <Card className="max-w-lg mx-auto text-center py-16">
+            <CardContent>
+              <h2 className="text-2xl font-bold mb-4">Please sign in</h2>
+              <p className="text-muted-foreground mb-8">You need to sign in to access your cart.</p>
+              <Button asChild size="lg">
+                <Link to="/auth">Sign In</Link>
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
   
   if (cartItems.length === 0) {
     return (

@@ -1,12 +1,16 @@
 
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Heart, User, Menu } from "lucide-react";
+import { ShoppingCart, Heart, User, Menu, LogOut } from "lucide-react";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { useState } from "react";
+import { useUser } from "@/contexts/UserContext";
+import { useCart } from "@/contexts/CartContext";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, logout } = useUser();
+  const { getCartCount } = useCart();
 
   const categories = [
     "Electronics", "Fashion", "Home & Kitchen", 
@@ -27,10 +31,20 @@ const Header = () => {
           </div>
           
           <div className="flex items-center space-x-4 text-white">
-            <Link to="/auth" className="flex items-center hover:text-primary-foreground/80">
-              <User size={20} className="mr-1" />
-              <span className="text-sm hidden sm:inline">Sign In</span>
-            </Link>
+            {user ? (
+              <div className="flex items-center space-x-4">
+                <span className="text-sm hidden sm:inline">Hi, {user.name.split(' ')[0]}</span>
+                <button onClick={logout} className="flex items-center hover:text-primary-foreground/80">
+                  <LogOut size={20} className="mr-1" />
+                  <span className="text-sm hidden sm:inline">Logout</span>
+                </button>
+              </div>
+            ) : (
+              <Link to="/auth" className="flex items-center hover:text-primary-foreground/80">
+                <User size={20} className="mr-1" />
+                <span className="text-sm hidden sm:inline">Sign In</span>
+              </Link>
+            )}
             <Link to="/wishlist" className="flex items-center hover:text-primary-foreground/80">
               <Heart size={20} className="mr-1" />
               <span className="text-sm hidden sm:inline">Wishlist</span>
@@ -38,9 +52,11 @@ const Header = () => {
             <Link to="/cart" className="flex items-center hover:text-primary-foreground/80">
               <div className="relative">
                 <ShoppingCart size={20} />
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
-                  3
-                </span>
+                {getCartCount() > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                    {getCartCount()}
+                  </span>
+                )}
               </div>
               <span className="text-sm ml-1 hidden sm:inline">Cart</span>
             </Link>
@@ -80,10 +96,10 @@ const Header = () => {
               <span>Categories</span>
             </Button>
             <div className="flex space-x-4">
-              <Link to="/offers" className="text-sm text-red-500 font-medium">
+              <Link to="/deals" className="text-sm text-red-500 font-medium">
                 Deals
               </Link>
-              <Link to="/new-arrivals" className="text-sm font-medium">
+              <Link to="/products" className="text-sm font-medium">
                 New
               </Link>
             </div>
