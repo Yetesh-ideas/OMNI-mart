@@ -1,395 +1,354 @@
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { ShoppingCart, Heart, Search, Star, ChevronRight, ArrowRight } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import ProductCard from "@/components/ProductCard";
+import Header from "@/components/Header";
+import products from "@/data/products";
+import deals from "@/data/deals";
 
 const Index = () => {
-  const featuredProducts = [
-    {
-      id: 1,
-      name: "Premium Wireless Headphones",
-      price: 199.99,
-      category: "Electronics",
-      rating: 4.8,
-      image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-    },
-    {
-      id: 2,
-      name: "Ergonomic Office Chair",
-      price: 249.99,
-      category: "Home Office",
-      rating: 4.7,
-      image: "https://images.unsplash.com/photo-1505843513577-22bb7d21e455?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-    },
-    {
-      id: 3,
-      name: "Smart Fitness Watch",
-      price: 149.99,
-      category: "Wearables",
-      rating: 4.9,
-      image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-    },
-    {
-      id: 4,
-      name: "Premium Leather Backpack",
-      price: 129.99,
-      category: "Accessories",
-      rating: 4.6,
-      image: "https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-    }
-  ];
-
-  const categories = [
-    { name: "Electronics", image: "https://images.unsplash.com/photo-1550009158-9ebf69173e03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" },
-    { name: "Clothing", image: "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" },
-    { name: "Home & Garden", image: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" },
-    { name: "Accessories", image: "https://images.unsplash.com/photo-1512163143273-bde0e3cc7407?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" }
-  ];
-
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header/Navigation */}
-      <header className="border-b sticky top-0 z-10 bg-background/80 backdrop-blur-md">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <Link to="/" className="text-2xl font-bold">
-            OMNI<span className="text-primary">store</span>
-          </Link>
-          
-          <div className="hidden md:flex space-x-6 text-sm">
-            <Link to="/products" className="hover:text-primary transition-colors">All Products</Link>
-            <Link to="/category/clothing" className="hover:text-primary transition-colors">Clothing</Link>
-            <Link to="/category/electronics" className="hover:text-primary transition-colors">Electronics</Link>
-            <Link to="/category/home" className="hover:text-primary transition-colors">Home</Link>
-          </div>
-          
-          <div className="flex items-center space-x-4">
-            <button aria-label="Search" className="p-2 hover:text-primary transition-colors">
-              <Search size={20} />
-            </button>
-            <Link to="/wishlist" aria-label="Wishlist" className="p-2 hover:text-primary transition-colors">
-              <Heart size={20} />
-            </Link>
-            <Link to="/cart" aria-label="Cart" className="p-2 hover:text-primary transition-colors relative">
-              <ShoppingCart size={20} />
-              <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground rounded-full text-xs w-4 h-4 flex items-center justify-center">
-                3
-              </span>
-            </Link>
-            <Link to="/auth">
-              <Button variant="outline" size="sm">Sign In</Button>
-            </Link>
-          </div>
-        </div>
-      </header>
-
-      {/* Hero Section */}
-      <section className="py-12 md:py-20 container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6 animate-fade-in">
-            <span className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">New Summer Collection</span>
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-              Discover Premium Products at <span className="text-primary">OMNI<span className="font-light">store</span></span>
-            </h1>
-            <p className="text-lg text-muted-foreground">
-              Shop the latest trends with unbeatable prices and quality that speaks for itself.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" asChild className="gap-2">
-                <Link to="/products">Shop Now <ArrowRight size={18} /></Link>
-              </Button>
-              <Button variant="outline" size="lg" asChild>
-                <Link to="/category/featured">Explore Featured</Link>
-              </Button>
-            </div>
-          </div>
-          
-          <div className="relative h-[400px] md:h-[500px] rounded-lg overflow-hidden animate-scale-in">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/20 z-10 rounded-lg"></div>
-            <img 
-              src="https://images.unsplash.com/photo-1607082350899-7e105aa886ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80" 
-              alt="OMNIstore featured products" 
-              className="object-cover w-full h-full"
-            />
-            <div className="absolute bottom-6 left-6 z-20 bg-background/80 backdrop-blur-sm rounded-lg p-4 max-w-xs">
-              <p className="font-semibold">Summer Sale</p>
-              <p className="text-sm text-muted-foreground">Up to 40% off on select items</p>
-              <Link to="/sale" className="text-primary text-sm flex items-center mt-2 hover:underline">
-                Shop the sale <ChevronRight size={16} />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section className="py-8 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="flex flex-col items-center text-center p-4">
-              <div className="bg-primary/10 rounded-full p-3 mb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
-              </div>
-              <h3 className="font-medium">Free Shipping</h3>
-              <p className="text-sm text-muted-foreground">On orders over $50</p>
-            </div>
-            <div className="flex flex-col items-center text-center p-4">
-              <div className="bg-primary/10 rounded-full p-3 mb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
-              </div>
-              <h3 className="font-medium">24/7 Support</h3>
-              <p className="text-sm text-muted-foreground">Customer service</p>
-            </div>
-            <div className="flex flex-col items-center text-center p-4">
-              <div className="bg-primary/10 rounded-full p-3 mb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
-              </div>
-              <h3 className="font-medium">Secure Payment</h3>
-              <p className="text-sm text-muted-foreground">100% secure checkout</p>
-            </div>
-            <div className="flex flex-col items-center text-center p-4">
-              <div className="bg-primary/10 rounded-full p-3 mb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><line x1="10" x2="8" y1="9" y2="9"></line></svg>
-              </div>
-              <h3 className="font-medium">Easy Returns</h3>
-              <p className="text-sm text-muted-foreground">30 day return policy</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Categories */}
-      <section className="py-12 container mx-auto px-4">
-        <h2 className="text-2xl md:text-3xl font-semibold mb-8">Shop by Category</h2>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-          {categories.map((category, index) => (
-            <Link to={`/category/${category.name.toLowerCase()}`} key={index} className="group">
-              <div className="relative rounded-lg overflow-hidden h-48 md:h-64">
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors z-10"></div>
-                <img 
-                  src={category.image} 
-                  alt={category.name} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 flex flex-col items-center justify-center z-20">
-                  <div className="bg-background/80 backdrop-blur-sm rounded-lg px-4 py-2 transform translate-y-2 group-hover:translate-y-0 transition-transform">
-                    <h3 className="font-semibold text-lg text-center">{category.name}</h3>
-                  </div>
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+      
+      {/* Main Content */}
+      <main>
+        {/* Hero Carousel */}
+        <section className="bg-gradient-to-r from-blue-50 to-indigo-50">
+          <div className="container mx-auto px-4 py-8 md:py-12">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+              <div className="md:col-span-5 space-y-4">
+                <span className="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                  Special Offer
+                </span>
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900">
+                  Up to 50% Off On Top Brands
+                </h1>
+                <p className="text-gray-600 text-lg max-w-md">
+                  Discover amazing deals on electronics, fashion, home goods and more. Limited time offers!
+                </p>
+                <div className="pt-4">
+                  <Button size="lg" asChild>
+                    <Link to="/products">Shop Now</Link>
+                  </Button>
                 </div>
               </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Featured Products */}
-      <section className="py-12 container mx-auto px-4">
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-2xl md:text-3xl font-semibold">Featured Products</h2>
-          <Link to="/products" className="text-primary hover:underline flex items-center">
-            View All <ChevronRight size={16} />
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {featuredProducts.map((product) => (
-            <Card key={product.id} className="overflow-hidden group">
-              <div className="relative h-60 overflow-hidden bg-muted">
+              <div className="md:col-span-7">
                 <img 
-                  src={product.image} 
-                  alt={product.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  src="https://images.unsplash.com/photo-1601924994987-69e26d50dc26?q=80&w=1170" 
+                  alt="Shopping promotion" 
+                  className="rounded-lg shadow-xl w-full object-cover h-[300px] md:h-[360px]"
                 />
-                <div className="absolute top-2 right-2 z-10 flex flex-col gap-2">
-                  <button className="bg-background/80 backdrop-blur-sm p-2 rounded-full hover:bg-background transition-colors">
-                    <Heart size={16} className="text-muted-foreground hover:text-primary transition-colors" />
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        {/* Deal Categories */}
+        <section className="py-8">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {deals.map((deal) => (
+                <Link 
+                  key={deal.id} 
+                  to={`/category/${deal.category}`} 
+                  className="relative rounded-lg overflow-hidden group shadow-sm"
+                  style={{ backgroundColor: deal.backgroundColor }}
+                >
+                  <div className="p-4 md:p-6">
+                    <h3 className="font-bold text-gray-900 text-lg">{deal.title}</h3>
+                    <p className="text-sm md:text-base font-medium text-red-600">{deal.discount}</p>
+                    <span className="text-primary text-sm mt-2 inline-block group-hover:underline">
+                      Shop now <ArrowRight size={14} className="inline ml-1" />
+                    </span>
+                  </div>
+                  <img 
+                    src={deal.image} 
+                    alt={deal.title}
+                    className="w-32 h-32 object-contain absolute bottom-0 right-0"
+                  />
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+        
+        {/* Trending Products */}
+        <section className="py-8">
+          <div className="container mx-auto px-4">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold">Trending Products</h2>
+              <Link to="/products" className="text-primary hover:underline flex items-center">
+                View all <ArrowRight size={16} className="ml-1" />
+              </Link>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {products.slice(0, 4).map((product) => (
+                <ProductCard
+                  key={product.id}
+                  id={product.id}
+                  name={product.name}
+                  price={product.price}
+                  image={product.image}
+                  category={product.category}
+                  rating={product.rating}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+        
+        {/* Categorized Products with Tabs */}
+        <section className="py-8 bg-white">
+          <div className="container mx-auto px-4">
+            <h2 className="text-2xl font-bold mb-6">Shop by Category</h2>
+            
+            <Tabs defaultValue="electronics" className="w-full">
+              <TabsList className="w-full justify-start mb-6 overflow-x-auto">
+                <TabsTrigger value="electronics">Electronics</TabsTrigger>
+                <TabsTrigger value="fashion">Fashion</TabsTrigger>
+                <TabsTrigger value="home">Home & Kitchen</TabsTrigger>
+                <TabsTrigger value="all">All Categories</TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="electronics" className="mt-0">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                  {products
+                    .filter(product => product.category === "Electronics")
+                    .map((product) => (
+                      <ProductCard
+                        key={product.id}
+                        id={product.id}
+                        name={product.name}
+                        price={product.price}
+                        image={product.image}
+                        category={product.category}
+                        rating={product.rating}
+                      />
+                    ))}
+                </div>
+              </TabsContent>
+              
+              <TabsContent value="fashion" className="mt-0">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                  {products
+                    .filter(product => product.category === "Fashion")
+                    .map((product) => (
+                      <ProductCard
+                        key={product.id}
+                        id={product.id}
+                        name={product.name}
+                        price={product.price}
+                        image={product.image}
+                        category={product.category}
+                        rating={product.rating}
+                      />
+                    ))}
+                </div>
+              </TabsContent>
+              
+              <TabsContent value="home" className="mt-0">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                  {products
+                    .filter(product => product.category === "Home & Kitchen")
+                    .map((product) => (
+                      <ProductCard
+                        key={product.id}
+                        id={product.id}
+                        name={product.name}
+                        price={product.price}
+                        image={product.image}
+                        category={product.category}
+                        rating={product.rating}
+                      />
+                    ))}
+                </div>
+              </TabsContent>
+              
+              <TabsContent value="all" className="mt-0">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                  {products.map((product) => (
+                    <ProductCard
+                      key={product.id}
+                      id={product.id}
+                      name={product.name}
+                      price={product.price}
+                      image={product.image}
+                      category={product.category}
+                      rating={product.rating}
+                    />
+                  ))}
+                </div>
+              </TabsContent>
+            </Tabs>
+          </div>
+        </section>
+        
+        {/* Deals of the Day */}
+        <section className="py-8 bg-orange-50">
+          <div className="container mx-auto px-4">
+            <div className="flex justify-between items-center mb-6">
+              <div>
+                <h2 className="text-2xl font-bold">Deals of the Day</h2>
+                <p className="text-muted-foreground">Offers end in 12:34:56</p>
+              </div>
+              <Link to="/deals" className="text-primary hover:underline flex items-center">
+                View all <ArrowRight size={16} className="ml-1" />
+              </Link>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {products
+                .filter(product => product.discount && product.discount > 20)
+                .map((product) => (
+                  <div key={product.id} className="relative">
+                    <div className="absolute top-3 left-3 z-10 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
+                      {product.discount}% OFF
+                    </div>
+                    <ProductCard
+                      id={product.id}
+                      name={product.name}
+                      price={product.price}
+                      image={product.image}
+                      category={product.category}
+                      rating={product.rating}
+                    />
+                  </div>
+                ))}
+            </div>
+          </div>
+        </section>
+        
+        {/* App Download Banner */}
+        <section className="py-10 bg-gradient-to-r from-primary to-primary-foreground text-white">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col md:flex-row items-center justify-between">
+              <div className="md:w-2/3 mb-6 md:mb-0">
+                <h2 className="text-2xl md:text-3xl font-bold mb-2">Download the OMNIstore App</h2>
+                <p className="text-primary-foreground/90 mb-4">
+                  Get exclusive app-only offers and shop on the go!
+                </p>
+                <div className="flex space-x-4">
+                  <button className="bg-black text-white px-4 py-2 rounded-md flex items-center">
+                    <svg className="w-8 h-8 mr-2" viewBox="0 0 24 24">
+                      <path fill="currentColor" d="M17.2,12L12,16.2L6.8,12L12,7.8L17.2,12M12,3C16.4,3 20,6.6 20,11C20,15.4 16.4,19 12,19C7.6,19 4,15.4 4,11C4,6.6 7.6,3 12,3M12,1C6.5,1 2,5.5 2,11C2,16.5 6.5,21 12,21C17.5,21 22,16.5 22,11C22,5.5 17.5,1 12,1L12,1Z" />
+                    </svg>
+                    <div className="text-left">
+                      <div className="text-xs">Download on the</div>
+                      <div className="text-sm font-semibold">App Store</div>
+                    </div>
+                  </button>
+                  <button className="bg-black text-white px-4 py-2 rounded-md flex items-center">
+                    <svg className="w-8 h-8 mr-2" viewBox="0 0 24 24">
+                      <path fill="currentColor" d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
+                    </svg>
+                    <div className="text-left">
+                      <div className="text-xs">GET IT ON</div>
+                      <div className="text-sm font-semibold">Google Play</div>
+                    </div>
                   </button>
                 </div>
               </div>
-              <CardContent className="p-4">
-                <div className="text-sm text-muted-foreground mb-1">{product.category}</div>
-                <h3 className="font-medium group-hover:text-primary transition-colors">{product.name}</h3>
-                <div className="flex items-center mt-1 mb-2">
-                  <div className="flex">
-                    {Array(5).fill(0).map((_, i) => (
-                      <Star 
-                        key={i} 
-                        size={14} 
-                        className={i < Math.floor(product.rating) ? "text-yellow-500 fill-yellow-500" : "text-muted"}
-                      />
-                    ))}
-                  </div>
-                  <span className="text-xs text-muted-foreground ml-1">{product.rating}</span>
-                </div>
-                <div className="flex justify-between items-center mt-2">
-                  <span className="font-semibold">${product.price.toFixed(2)}</span>
-                  <Button size="sm" variant="outline" className="group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                    <ShoppingCart size={16} className="mr-1" /> Add
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Special Offer Banner */}
-      <section className="py-12 container mx-auto px-4">
-        <div className="relative rounded-lg overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/60 z-10"></div>
-          <img 
-            src="https://images.unsplash.com/photo-1607083206968-13611e3d76db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80" 
-            alt="Special offer" 
-            className="w-full h-64 object-cover"
-          />
-          <div className="absolute inset-0 flex items-center z-20 px-6 md:px-12">
-            <div className="max-w-lg text-white">
-              <h3 className="text-2xl md:text-3xl font-bold mb-2">Summer Special Offer</h3>
-              <p className="mb-4">Get up to 40% off on selected items. Limited time offer.</p>
-              <Button className="bg-white text-primary hover:bg-white/90">Shop Now</Button>
+              <div className="md:w-1/3">
+                <img 
+                  src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1160" 
+                  alt="Mobile App" 
+                  className="w-64 mx-auto rounded-lg shadow-lg" 
+                />
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* New Arrivals */}
-      <section className="py-12 container mx-auto px-4">
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-2xl md:text-3xl font-semibold">New Arrivals</h2>
-          <Link to="/new" className="text-primary hover:underline flex items-center">
-            View All <ChevronRight size={16} />
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            { 
-              id: 5, 
-              name: "Modern Desk Lamp", 
-              price: 79.99, 
-              image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
-            },
-            { 
-              id: 6, 
-              name: "Minimalist Watch", 
-              price: 119.99, 
-              image: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
-            },
-            { 
-              id: 7, 
-              name: "Wireless Earbuds", 
-              price: 89.99, 
-              image: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
-            },
-            { 
-              id: 8, 
-              name: "Glass Water Bottle", 
-              price: 29.99, 
-              image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
-            }
-          ].map((product) => (
-            <Link to={`/product/${product.id}`} key={product.id} className="group">
-              <div className="relative overflow-hidden rounded-lg">
-                <div className="aspect-square overflow-hidden bg-muted rounded-lg">
-                  <img 
-                    src={product.image} 
-                    alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="mt-2">
-                  <h3 className="font-medium text-sm group-hover:text-primary transition-colors truncate">{product.name}</h3>
-                  <div className="flex justify-between items-center mt-1">
-                    <span className="font-semibold text-sm">${product.price.toFixed(2)}</span>
-                    <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded">New</span>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Newsletter */}
-      <section className="py-12 bg-muted/30">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl md:text-3xl font-semibold mb-4">Stay Updated</h2>
-          <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-            Subscribe to the OMNIstore newsletter for exclusive offers and updates.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
-            <input 
-              type="email" 
-              placeholder="Your email" 
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"
-            />
-            <Button>Subscribe</Button>
-          </div>
-        </div>
-      </section>
-
+        </section>
+      </main>
+      
       {/* Footer */}
-      <footer className="border-t py-12 bg-background">
-        <div className="container mx-auto px-4">
+      <footer className="bg-gray-800 text-gray-300">
+        <div className="container mx-auto px-4 py-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-lg font-semibold mb-4">OMNI<span className="text-primary">store</span></h3>
-              <p className="text-muted-foreground text-sm">
-                Premium products for your lifestyle. Quality meets innovation at OMNIstore.
+              <h3 className="text-xl font-bold text-white mb-4">OMNI<span className="font-light">store</span></h3>
+              <p className="text-sm mb-4">
+                Your one-stop destination for all your shopping needs. Quality products, competitive prices, and fast delivery.
               </p>
-              <div className="flex space-x-4 mt-4">
-                <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+              <div className="flex space-x-4">
+                <a href="#" className="text-gray-300 hover:text-white">
+                  <span className="sr-only">Facebook</span>
+                  <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
+                  </svg>
                 </a>
-                <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+                <a href="#" className="text-gray-300 hover:text-white">
+                  <span className="sr-only">Instagram</span>
+                  <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fillRule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clipRule="evenodd" />
+                  </svg>
                 </a>
-                <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+                <a href="#" className="text-gray-300 hover:text-white">
+                  <span className="sr-only">Twitter</span>
+                  <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+                  </svg>
                 </a>
               </div>
             </div>
             
             <div>
-              <h4 className="font-medium mb-4">Shop</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Link to="/products" className="hover:text-primary transition-colors">All Products</Link></li>
-                <li><Link to="/category/new" className="hover:text-primary transition-colors">New Arrivals</Link></li>
-                <li><Link to="/category/featured" className="hover:text-primary transition-colors">Featured</Link></li>
-                <li><Link to="/category/sale" className="hover:text-primary transition-colors">Sale</Link></li>
+              <h4 className="text-white font-medium mb-4">Shop</h4>
+              <ul className="space-y-2 text-sm">
+                <li><Link to="/products" className="hover:text-white">All Products</Link></li>
+                <li><Link to="/deals" className="hover:text-white">Deals</Link></li>
+                <li><Link to="/category/electronics" className="hover:text-white">Electronics</Link></li>
+                <li><Link to="/category/fashion" className="hover:text-white">Fashion</Link></li>
+                <li><Link to="/category/home-kitchen" className="hover:text-white">Home & Kitchen</Link></li>
               </ul>
             </div>
             
             <div>
-              <h4 className="font-medium mb-4">Customer Service</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Link to="/contact" className="hover:text-primary transition-colors">Contact Us</Link></li>
-                <li><Link to="/shipping" className="hover:text-primary transition-colors">Shipping & Returns</Link></li>
-                <li><Link to="/faq" className="hover:text-primary transition-colors">FAQ</Link></li>
-                <li><Link to="/terms" className="hover:text-primary transition-colors">Terms & Conditions</Link></li>
+              <h4 className="text-white font-medium mb-4">Customer Service</h4>
+              <ul className="space-y-2 text-sm">
+                <li><Link to="/contact" className="hover:text-white">Contact Us</Link></li>
+                <li><Link to="/faq" className="hover:text-white">FAQ</Link></li>
+                <li><Link to="/returns" className="hover:text-white">Returns & Refunds</Link></li>
+                <li><Link to="/shipping" className="hover:text-white">Shipping Policy</Link></li>
+                <li><Link to="/terms" className="hover:text-white">Terms & Conditions</Link></li>
               </ul>
             </div>
             
             <div>
-              <h4 className="font-medium mb-4">Account</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Link to="/auth" className="hover:text-primary transition-colors">Sign In / Register</Link></li>
-                <li><Link to="/account" className="hover:text-primary transition-colors">My Account</Link></li>
-                <li><Link to="/orders" className="hover:text-primary transition-colors">Order History</Link></li>
-                <li><Link to="/wishlist" className="hover:text-primary transition-colors">Wishlist</Link></li>
-              </ul>
+              <h4 className="text-white font-medium mb-4">Newsletter</h4>
+              <p className="text-sm mb-4">
+                Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.
+              </p>
+              <form className="flex">
+                <input 
+                  type="email" 
+                  placeholder="Your email" 
+                  className="flex-1 px-3 py-2 text-sm text-black rounded-l-md focus:outline-none"
+                />
+                <Button variant="default" className="rounded-l-none">
+                  Subscribe
+                </Button>
+              </form>
             </div>
           </div>
           
-          <div className="border-t mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-muted-foreground">© 2023 OMNIstore. All rights reserved.</p>
-            <div className="flex items-center space-x-4 mt-4 md:mt-0">
-              <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/visa.svg" alt="Visa" className="h-6 w-10 opacity-70" />
-              <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/mastercard.svg" alt="Mastercard" className="h-6 w-10 opacity-70" />
-              <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/paypal.svg" alt="PayPal" className="h-6 w-10 opacity-70" />
-              <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/applepay.svg" alt="Apple Pay" className="h-6 w-10 opacity-70" />
+          <div className="border-t border-gray-700 mt-12 pt-6 flex flex-col md:flex-row justify-between items-center">
+            <p className="text-sm text-gray-400">
+              &copy; {new Date().getFullYear()} OMNIstore. All rights reserved.
+            </p>
+            <div className="flex space-x-6 mt-4 md:mt-0">
+              <Link to="/privacy" className="text-sm text-gray-400 hover:text-white">
+                Privacy Policy
+              </Link>
+              <Link to="/terms" className="text-sm text-gray-400 hover:text-white">
+                Terms of Service
+              </Link>
+              <Link to="/sitemap" className="text-sm text-gray-400 hover:text-white">
+                Sitemap
+              </Link>
             </div>
           </div>
         </div>
