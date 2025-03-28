@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Heart } from "lucide-react";
+import { ShoppingCart, Heart, ImageOff } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useCart } from "@/contexts/CartContext";
@@ -18,6 +18,7 @@ interface ProductCardProps {
 
 const ProductCard = ({ id, name, price, image, category, rating }: ProductCardProps) => {
   const [isAddingToCart, setIsAddingToCart] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
 
@@ -46,15 +47,27 @@ const ProductCard = ({ id, name, price, image, category, rating }: ProductCardPr
     }
   };
 
+  const handleImageError = () => {
+    setImageError(true);
+  };
+
   return (
     <Link to={`/product/${id}`} className="group">
       <div className="border rounded-lg overflow-hidden transition-all hover:shadow-md bg-white">
         <div className="relative aspect-square overflow-hidden bg-muted">
-          <img 
-            src={image} 
-            alt={name}
-            className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300"
-          />
+          {!imageError ? (
+            <img 
+              src={image} 
+              alt={name}
+              className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300"
+              onError={handleImageError}
+            />
+          ) : (
+            <div className="w-full h-full flex flex-col items-center justify-center p-4 bg-gray-100">
+              <ImageOff size={48} className="text-gray-400 mb-2" />
+              <span className="text-sm text-gray-500">No image available</span>
+            </div>
+          )}
           <button 
             onClick={handleWishlistToggle}
             className="absolute top-2 right-2 p-1.5 rounded-full bg-white/80 hover:bg-white shadow-sm z-10"

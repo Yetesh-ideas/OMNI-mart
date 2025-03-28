@@ -46,6 +46,7 @@ const SearchBar = ({ className, compact = false }: SearchBarProps) => {
       <button
         type="submit"
         className="h-10 px-4 bg-primary hover:bg-primary/90 text-white rounded-r-md flex items-center justify-center"
+        aria-label="Search"
       >
         <Search size={18} />
       </button>

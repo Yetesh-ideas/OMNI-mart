@@ -13,6 +13,8 @@ import { UserProvider } from "./contexts/UserContext";
 import { CartProvider } from "./contexts/CartContext";
 import { WishlistProvider } from "./contexts/WishlistContext";
 import Wishlist from "./pages/Wishlist";
+import SearchResults from "./pages/SearchResults";
+import CategoryPage from "./pages/CategoryPage";
 
 // Create a new query client instance
 const queryClient = new QueryClient();
@@ -29,8 +31,8 @@ const App = () => (
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/product/:id" element={<ProductDetail />} />
-                <Route path="/category/:category" element={<NotFound />} />
-                <Route path="/search" element={<NotFound />} />
+                <Route path="/category/:category" element={<CategoryPage />} />
+                <Route path="/search" element={<SearchResults />} />
                 <Route path="/wishlist" element={<Wishlist />} />
                 <Route path="/deals" element={<NotFound />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
