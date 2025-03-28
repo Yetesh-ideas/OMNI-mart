@@ -51,6 +51,8 @@ const ProductCard = ({ id, name, price, image, category, rating }: ProductCardPr
     setImageError(true);
   };
 
+  const placeholderImage = "https://placehold.co/400x400/e6e6e6/999999?text=Product+Image";
+
   return (
     <Link to={`/product/${id}`} className="group">
       <div className="border rounded-lg overflow-hidden transition-all hover:shadow-md bg-white">
@@ -63,10 +65,11 @@ const ProductCard = ({ id, name, price, image, category, rating }: ProductCardPr
               onError={handleImageError}
             />
           ) : (
-            <div className="w-full h-full flex flex-col items-center justify-center p-4 bg-gray-100">
-              <ImageOff size={48} className="text-gray-400 mb-2" />
-              <span className="text-sm text-gray-500">No image available</span>
-            </div>
+            <img 
+              src={placeholderImage}
+              alt={name}
+              className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300"
+            />
           )}
           <button 
             onClick={handleWishlistToggle}

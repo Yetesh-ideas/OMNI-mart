@@ -1,3 +1,4 @@
+
 export interface Product {
   id: number;
   name: string;
@@ -11,6 +12,7 @@ export interface Product {
 }
 
 const products: Product[] = [
+  // Original products with updated image URLs or fixing broken ones
   {
     id: 1,
     name: "OnePlus Nord CE 3 Lite 5G (Chromatic Grey, 8GB RAM, 128GB Storage)",
@@ -318,6 +320,249 @@ const products: Product[] = [
     category: "Books",
     rating: 4.5,
     description: "Rich Dad Poor Dad explains the differences in mindsets between the rich and the poor, teaching readers how to think about money and investing in a way that can help them achieve financial freedom."
+  },
+  // New products
+  {
+    id: 29,
+    name: "Apple iPad Air (5th Generation) 256GB Wi-Fi",
+    price: 699.99,
+    originalPrice: 849.99,
+    discount: 18,
+    image: "https://m.media-amazon.com/images/I/61XZQXFQeVL._AC_UY218_.jpg",
+    category: "Electronics",
+    rating: 4.8,
+    description: "Experience incredible power and versatility with the iPad Air featuring the M1 chip, 10.9-inch Liquid Retina display, and all-day battery life."
+  },
+  {
+    id: 30,
+    name: "Bose QuietComfort 45 Wireless Noise Cancelling Headphones",
+    price: 329.99,
+    originalPrice: 379.99,
+    discount: 13,
+    image: "https://m.media-amazon.com/images/I/51CvscYXpML._AC_UY218_.jpg",
+    category: "Electronics",
+    rating: 4.7,
+    description: "Enjoy world-class noise cancellation, premium comfort, and up to 24 hours of battery life with these wireless headphones from Bose."
+  },
+  {
+    id: 31,
+    name: "Canon EOS Rebel T7 DSLR Camera with 18-55mm Lens Kit",
+    price: 449.99,
+    originalPrice: 549.99,
+    discount: 18,
+    image: "https://m.media-amazon.com/images/I/71EWRyqzw0L._AC_UY218_.jpg",
+    category: "Electronics",
+    rating: 4.6,
+    description: "Perfect for beginners, this DSLR camera features a 24.1 Megapixel CMOS sensor, Full HD video recording, and built-in Wi-Fi connectivity."
+  },
+  {
+    id: 32,
+    name: "Instant Pot Duo 7-in-1 Electric Pressure Cooker, 6 Quart",
+    price: 89.99,
+    originalPrice: 119.99,
+    discount: 25,
+    image: "https://m.media-amazon.com/images/I/71WtwEvwGrL._AC_UL320_.jpg",
+    category: "Home & Kitchen",
+    rating: 4.7,
+    description: "This versatile kitchen essential functions as a pressure cooker, slow cooker, rice cooker, steamer, sauté pan, yogurt maker, and warmer."
+  },
+  {
+    id: 33,
+    name: "Philips Air Fryer XXL with Digital Display",
+    price: 149.99,
+    originalPrice: 199.99,
+    discount: 25,
+    image: "https://m.media-amazon.com/images/I/718OIBJ3E8L._AC_UL320_.jpg",
+    category: "Home & Kitchen",
+    rating: 4.6,
+    description: "Cook healthier meals with up to 90% less fat using this air fryer featuring rapid air technology and a large capacity for family-sized portions."
+  },
+  {
+    id: 34,
+    name: "KitchenAid Stand Mixer with 10 Speed Settings, 5 Quart",
+    price: 349.99,
+    originalPrice: 429.99,
+    discount: 19,
+    image: "https://m.media-amazon.com/images/I/61g+PrVQGVL._AC_UL320_.jpg",
+    category: "Home & Kitchen",
+    rating: 4.8,
+    description: "This iconic stand mixer comes with a stainless steel bowl, dough hook, flat beater, and wire whip to handle all your baking needs."
+  },
+  {
+    id: 35,
+    name: "Dyson V11 Cordless Vacuum Cleaner",
+    price: 599.99,
+    originalPrice: 699.99,
+    discount: 14,
+    image: "https://m.media-amazon.com/images/I/615YmMr9fxL._AC_UL320_.jpg",
+    category: "Home & Kitchen",
+    rating: 4.7,
+    description: "Experience powerful suction, intelligent cleaning modes, and up to 60 minutes of fade-free power with this advanced cordless vacuum."
+  },
+  {
+    id: 36,
+    name: "Levi's Men's 501 Original Fit Jeans",
+    price: 39.99,
+    originalPrice: 59.99,
+    discount: 33,
+    image: "https://m.media-amazon.com/images/I/61HfEZw+HpL._AC_UL320_.jpg",
+    category: "Fashion",
+    rating: 4.5,
+    description: "The iconic straight fit jeans with a button fly, regular seat and thigh, made with premium denim for durability and classic style."
+  },
+  {
+    id: 37,
+    name: "Calvin Klein Men's Cotton Classics Multipack Crew Neck T-Shirts",
+    price: 29.99,
+    originalPrice: 39.99,
+    discount: 25,
+    image: "https://m.media-amazon.com/images/I/71qH5WH1K1L._AC_UL320_.jpg",
+    category: "Fashion",
+    rating: 4.6,
+    description: "Pack of 3 classic crew neck t-shirts made with premium cotton for everyday comfort and lasting quality."
+  },
+  {
+    id: 38,
+    name: "Women's Cashmere Blend Cardigan Sweater",
+    price: 79.99,
+    originalPrice: 99.99,
+    discount: 20,
+    image: "https://m.media-amazon.com/images/I/718RaQ67XOL._AC_UL320_.jpg",
+    category: "Fashion",
+    rating: 4.4,
+    description: "Luxurious cashmere blend cardigan featuring a relaxed fit, button-front closure, and ribbed cuffs for elegant everyday wear."
+  },
+  {
+    id: 39,
+    name: "Women's Lightweight Packable Down Jacket",
+    price: 69.99,
+    originalPrice: 89.99,
+    discount: 22,
+    image: "https://m.media-amazon.com/images/I/71B5YzEKZUL._AC_UL320_.jpg",
+    category: "Fashion",
+    rating: 4.5,
+    description: "Water-resistant down jacket that packs into an included carrying bag, perfect for travel and transitional weather."
+  },
+  {
+    id: 40,
+    name: "MAC Matte Lipstick - Ruby Woo",
+    price: 19.99,
+    originalPrice: 24.99,
+    discount: 20,
+    image: "https://m.media-amazon.com/images/I/51YIpz0KjFL._SX679_.jpg",
+    category: "Beauty",
+    rating: 4.7,
+    description: "MAC's iconic matte red lipstick with a vivid, intense color payoff that lasts up to 8 hours."
+  },
+  {
+    id: 41,
+    name: "Olay Regenerist Micro-Sculpting Cream Face Moisturizer",
+    price: 28.99,
+    originalPrice: 36.99,
+    discount: 22,
+    image: "https://m.media-amazon.com/images/I/71wTLBURhEL._SX679_.jpg",
+    category: "Beauty",
+    rating: 4.6,
+    description: "Anti-aging face moisturizer that hydrates skin and diminishes the appearance of fine lines and wrinkles for a more youthful appearance."
+  },
+  {
+    id: 42,
+    name: "Neutrogena Hydro Boost Water Gel Face Moisturizer",
+    price: 18.99,
+    originalPrice: 24.99,
+    discount: 24,
+    image: "https://m.media-amazon.com/images/I/71QHNpQbPzL._SX679_.jpg",
+    category: "Beauty",
+    rating: 4.5,
+    description: "Oil-free, water-based facial moisturizer that hydrates dry skin with hyaluronic acid, leaving it supple and smooth."
+  },
+  {
+    id: 43,
+    name: "The Subtle Art of Not Giving a F*ck by Mark Manson",
+    price: 14.99,
+    originalPrice: 18.99,
+    discount: 21,
+    image: "https://m.media-amazon.com/images/I/71QKQ9mwV7L._AC_UY218_.jpg",
+    category: "Books",
+    rating: 4.6,
+    description: "A counterintuitive guide to living a good life by learning to accept and embrace difficulties and failures rather than always forcing positivity."
+  },
+  {
+    id: 44,
+    name: "Sapiens: A Brief History of Humankind by Yuval Noah Harari",
+    price: 17.99,
+    originalPrice: 24.99,
+    discount: 28,
+    image: "https://m.media-amazon.com/images/I/713jIoMO3UL._AC_UY218_.jpg",
+    category: "Books",
+    rating: 4.7,
+    description: "An exploration of how Homo sapiens evolved from an unexceptional savannah-dwelling primate to become the dominant force on the planet."
+  },
+  {
+    id: 45,
+    name: "Think and Grow Rich by Napoleon Hill",
+    price: 8.99,
+    originalPrice: 12.99,
+    discount: 31,
+    image: "https://m.media-amazon.com/images/I/71UypkUjStL._AC_UY218_.jpg",
+    category: "Books",
+    rating: 4.7,
+    description: "A personal development and self-improvement book that teaches the principles of success used by Andrew Carnegie and other wealthy individuals."
+  },
+  {
+    id: 46,
+    name: "Samsung Galaxy Tab S7 FE 12.4-inch Android Tablet",
+    price: 429.99,
+    originalPrice: 529.99,
+    discount: 19,
+    image: "https://m.media-amazon.com/images/I/61b2BrYtVGL._AC_UY218_.jpg",
+    category: "Electronics",
+    rating: 4.6,
+    description: "Large 12.4-inch display tablet with included S Pen, perfect for note-taking, drawing, and entertainment with long-lasting battery life."
+  },
+  {
+    id: 47,
+    name: "Amazon Echo Show 10 (3rd Gen) Smart Display with Alexa",
+    price: 249.99,
+    originalPrice: 289.99,
+    discount: 14,
+    image: "https://m.media-amazon.com/images/I/61J6UT9oSPL._AC_UY218_.jpg",
+    category: "Electronics",
+    rating: 4.5,
+    description: "The Echo Show 10 automatically rotates to follow you, keeping you in frame during video calls and showing you content as you move around."
+  },
+  {
+    id: 48,
+    name: "Ninja Foodi 9-in-1 Pressure Cooker and Air Fryer",
+    price: 189.99,
+    originalPrice: 229.99,
+    discount: 17,
+    image: "https://m.media-amazon.com/images/I/71+8uTMDRFL._AC_UL320_.jpg",
+    category: "Home & Kitchen",
+    rating: 4.8,
+    description: "This versatile appliance combines pressure cooking and air frying with 8 other cooking functions to create quick, delicious meals in one pot."
+  },
+  {
+    id: 49,
+    name: "Men's Athletic Running Shoes",
+    price: 69.99,
+    originalPrice: 89.99,
+    discount: 22,
+    image: "https://m.media-amazon.com/images/I/81xykLCMsKL._AC_UL320_.jpg",
+    category: "Fashion",
+    rating: 4.4,
+    description: "Lightweight, breathable running shoes with responsive cushioning and durable rubber outsole for traction on various surfaces."
+  },
+  {
+    id: 50,
+    name: "Le Labo Santal 33 Eau de Parfum",
+    price: 89.99,
+    originalPrice: 109.99,
+    discount: 18,
+    image: "https://m.media-amazon.com/images/I/61ijs3kBgSL._SX679_.jpg",
+    category: "Beauty",
+    rating: 4.8,
+    description: "A unisex fragrance with notes of cardamom, iris, violet, and sandalwood that creates an addictive, distinctive scent signature."
   }
 ];
 
