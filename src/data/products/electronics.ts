@@ -89,61 +89,6 @@ const electronicsProducts: Product[] = [
     category: "Electronics",
     rating: 4.7,
     description: "Logitech MX Master 3 Advanced Wireless Mouse with ultra-fast scrolling, customizable buttons, and compatibility with multiple devices."
-  },
-  {
-    id: 29,
-    name: "Apple iPad Air (5th Generation) 256GB Wi-Fi",
-    price: 699.99,
-    originalPrice: 849.99,
-    discount: 18,
-    image: "https://m.media-amazon.com/images/I/61XZQXFQeVL._AC_UY218_.jpg",
-    category: "Electronics",
-    rating: 4.8,
-    description: "Experience incredible power and versatility with the iPad Air featuring the M1 chip, 10.9-inch Liquid Retina display, and all-day battery life."
-  },
-  {
-    id: 30,
-    name: "Bose QuietComfort 45 Wireless Noise Cancelling Headphones",
-    price: 329.99,
-    originalPrice: 379.99,
-    discount: 13,
-    image: "https://m.media-amazon.com/images/I/51CvscYXpML._AC_UY218_.jpg",
-    category: "Electronics",
-    rating: 4.7,
-    description: "Enjoy world-class noise cancellation, premium comfort, and up to 24 hours of battery life with these wireless headphones from Bose."
-  },
-  {
-    id: 31,
-    name: "Canon EOS Rebel T7 DSLR Camera with 18-55mm Lens Kit",
-    price: 449.99,
-    originalPrice: 549.99,
-    discount: 18,
-    image: "https://m.media-amazon.com/images/I/71EWRyqzw0L._AC_UY218_.jpg",
-    category: "Electronics",
-    rating: 4.6,
-    description: "Perfect for beginners, this DSLR camera features a 24.1 Megapixel CMOS sensor, Full HD video recording, and built-in Wi-Fi connectivity."
-  },
-  {
-    id: 46,
-    name: "Samsung Galaxy Tab S7 FE 12.4-inch Android Tablet",
-    price: 429.99,
-    originalPrice: 529.99,
-    discount: 19,
-    image: "https://m.media-amazon.com/images/I/61b2BrYtVGL._AC_UY218_.jpg",
-    category: "Electronics",
-    rating: 4.6,
-    description: "Large 12.4-inch display tablet with included S Pen, perfect for note-taking, drawing, and entertainment with long-lasting battery life."
-  },
-  {
-    id: 47,
-    name: "Amazon Echo Show 10 (3rd Gen) Smart Display with Alexa",
-    price: 249.99,
-    originalPrice: 289.99,
-    discount: 14,
-    image: "https://m.media-amazon.com/images/I/61J6UT9oSPL._AC_UY218_.jpg",
-    category: "Electronics",
-    rating: 4.5,
-    description: "The Echo Show 10 automatically rotates to follow you, keeping you in frame during video calls and showing you content as you move around."
   }
 ];
 

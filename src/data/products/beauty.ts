@@ -78,17 +78,6 @@ const beautyProducts: Product[] = [
     category: "Beauty",
     rating: 4.5,
     description: "Oil-free, water-based facial moisturizer that hydrates dry skin with hyaluronic acid, leaving it supple and smooth."
-  },
-  {
-    id: 50,
-    name: "Le Labo Santal 33 Eau de Parfum",
-    price: 89.99,
-    originalPrice: 109.99,
-    discount: 18,
-    image: "https://m.media-amazon.com/images/I/61ijs3kBgSL._SX679_.jpg",
-    category: "Beauty",
-    rating: 4.8,
-    description: "A unisex fragrance with notes of cardamom, iris, violet, and sandalwood that creates an addictive, distinctive scent signature."
   }
 ];
 

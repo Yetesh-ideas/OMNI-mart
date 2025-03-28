@@ -67,61 +67,6 @@ const fashionProducts: Product[] = [
     category: "Fashion",
     rating: 4.0,
     description: "Unisex Cotton Graphic T-Shirts in a pack of 3, featuring comfortable fit, trendy designs, and premium quality fabric that's soft and durable."
-  },
-  {
-    id: 36,
-    name: "Levi's Men's 501 Original Fit Jeans",
-    price: 39.99,
-    originalPrice: 59.99,
-    discount: 33,
-    image: "https://m.media-amazon.com/images/I/61HfEZw+HpL._AC_UL320_.jpg",
-    category: "Fashion",
-    rating: 4.5,
-    description: "The iconic straight fit jeans with a button fly, regular seat and thigh, made with premium denim for durability and classic style."
-  },
-  {
-    id: 37,
-    name: "Calvin Klein Men's Cotton Classics Multipack Crew Neck T-Shirts",
-    price: 29.99,
-    originalPrice: 39.99,
-    discount: 25,
-    image: "https://m.media-amazon.com/images/I/71qH5WH1K1L._AC_UL320_.jpg",
-    category: "Fashion",
-    rating: 4.6,
-    description: "Pack of 3 classic crew neck t-shirts made with premium cotton for everyday comfort and lasting quality."
-  },
-  {
-    id: 38,
-    name: "Women's Cashmere Blend Cardigan Sweater",
-    price: 79.99,
-    originalPrice: 99.99,
-    discount: 20,
-    image: "https://m.media-amazon.com/images/I/718RaQ67XOL._AC_UL320_.jpg",
-    category: "Fashion",
-    rating: 4.4,
-    description: "Luxurious cashmere blend cardigan featuring a relaxed fit, button-front closure, and ribbed cuffs for elegant everyday wear."
-  },
-  {
-    id: 39,
-    name: "Women's Lightweight Packable Down Jacket",
-    price: 69.99,
-    originalPrice: 89.99,
-    discount: 22,
-    image: "https://m.media-amazon.com/images/I/71B5YzEKZUL._AC_UL320_.jpg",
-    category: "Fashion",
-    rating: 4.5,
-    description: "Water-resistant down jacket that packs into an included carrying bag, perfect for travel and transitional weather."
-  },
-  {
-    id: 49,
-    name: "Men's Athletic Running Shoes",
-    price: 69.99,
-    originalPrice: 89.99,
-    discount: 22,
-    image: "https://m.media-amazon.com/images/I/81xykLCMsKL._AC_UL320_.jpg",
-    category: "Fashion",
-    rating: 4.4,
-    description: "Lightweight, breathable running shoes with responsive cushioning and durable rubber outsole for traction on various surfaces."
   }
 ];
 

@@ -16,5 +16,5 @@ const allProducts: Product[] = [
 ];
 
 export default allProducts;
-export { Product };
+export type { Product };
 export { electronicsProducts, fashionProducts, homeKitchenProducts, beautyProducts, booksProducts };

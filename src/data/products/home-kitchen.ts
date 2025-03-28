@@ -67,61 +67,6 @@ const homeKitchenProducts: Product[] = [
     category: "Home & Kitchen",
     rating: 4.1,
     description: "Cotton Bedsheet with 2 Pillow Covers in King Size, featuring premium quality fabric, vibrant colors, and shrink-resistant properties."
-  },
-  {
-    id: 32,
-    name: "Instant Pot Duo 7-in-1 Electric Pressure Cooker, 6 Quart",
-    price: 89.99,
-    originalPrice: 119.99,
-    discount: 25,
-    image: "https://m.media-amazon.com/images/I/71WtwEvwGrL._AC_UL320_.jpg",
-    category: "Home & Kitchen",
-    rating: 4.7,
-    description: "This versatile kitchen essential functions as a pressure cooker, slow cooker, rice cooker, steamer, sauté pan, yogurt maker, and warmer."
-  },
-  {
-    id: 33,
-    name: "Philips Air Fryer XXL with Digital Display",
-    price: 149.99,
-    originalPrice: 199.99,
-    discount: 25,
-    image: "https://m.media-amazon.com/images/I/718OIBJ3E8L._AC_UL320_.jpg",
-    category: "Home & Kitchen",
-    rating: 4.6,
-    description: "Cook healthier meals with up to 90% less fat using this air fryer featuring rapid air technology and a large capacity for family-sized portions."
-  },
-  {
-    id: 34,
-    name: "KitchenAid Stand Mixer with 10 Speed Settings, 5 Quart",
-    price: 349.99,
-    originalPrice: 429.99,
-    discount: 19,
-    image: "https://m.media-amazon.com/images/I/61g+PrVQGVL._AC_UL320_.jpg",
-    category: "Home & Kitchen",
-    rating: 4.8,
-    description: "This iconic stand mixer comes with a stainless steel bowl, dough hook, flat beater, and wire whip to handle all your baking needs."
-  },
-  {
-    id: 35,
-    name: "Dyson V11 Cordless Vacuum Cleaner",
-    price: 599.99,
-    originalPrice: 699.99,
-    discount: 14,
-    image: "https://m.media-amazon.com/images/I/615YmMr9fxL._AC_UL320_.jpg",
-    category: "Home & Kitchen",
-    rating: 4.7,
-    description: "Experience powerful suction, intelligent cleaning modes, and up to 60 minutes of fade-free power with this advanced cordless vacuum."
-  },
-  {
-    id: 48,
-    name: "Ninja Foodi 9-in-1 Pressure Cooker and Air Fryer",
-    price: 189.99,
-    originalPrice: 229.99,
-    discount: 17,
-    image: "https://m.media-amazon.com/images/I/71+8uTMDRFL._AC_UL320_.jpg",
-    category: "Home & Kitchen",
-    rating: 4.8,
-    description: "This versatile appliance combines pressure cooking and air frying with 8 other cooking functions to create quick, delicious meals in one pot."
   }
 ];
 
