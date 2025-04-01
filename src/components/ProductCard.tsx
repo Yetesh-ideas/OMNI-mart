@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Heart, ImageOff } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -7,6 +6,7 @@ import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
 import { formatPriceInINR } from "@/utils/currency";
 import { Skeleton } from "@/components/ui/skeleton";
+import { toast } from "sonner";
 
 interface ProductCardProps {
   id: number;
@@ -31,6 +31,7 @@ const ProductCard = ({ id, name, price, image, category, rating }: ProductCardPr
     
     // Add to cart using context
     addToCart(id);
+    toast.success(`${name} added to cart`);
     
     // Show loading state briefly for better UX
     setTimeout(() => {
@@ -44,14 +45,17 @@ const ProductCard = ({ id, name, price, image, category, rating }: ProductCardPr
     
     if (isInWishlist(id)) {
       removeFromWishlist(id);
+      toast.info(`${name} removed from wishlist`);
     } else {
       addToWishlist(id);
+      toast.success(`${name} added to wishlist`);
     }
   };
 
   const handleImageError = () => {
     setImageError(true);
     setIsLoading(false);
+    console.log(`Product card image failed to load: ${image} for product ID: ${id}`);
   };
 
   const handleImageLoad = () => {
@@ -62,11 +66,12 @@ const ProductCard = ({ id, name, price, image, category, rating }: ProductCardPr
     setIsLoading(true);
     setImageError(false);
     
-    if (!image) {
+    if (!image || image.trim() === '') {
       setImageError(true);
       setIsLoading(false);
+      console.log(`No image URL provided for product ID: ${id}`);
     }
-  }, [image]);
+  }, [image, id]);
 
   const placeholderImage = "https://placehold.co/400x400/e6e6e6/999999?text=Product+Image";
 

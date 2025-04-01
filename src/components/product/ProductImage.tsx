@@ -16,10 +16,12 @@ const ProductImage = ({ image, name }: ProductImageProps) => {
   const handleImageError = () => {
     setImageError(true);
     setIsLoading(false);
+    console.log(`Image failed to load: ${image} for product: ${name}`);
   };
 
   const handleImageLoad = () => {
     setIsLoading(false);
+    console.log(`Image loaded successfully: ${image} for product: ${name}`);
   };
 
   // Check if image URL is valid before attempting to load it
@@ -30,8 +32,9 @@ const ProductImage = ({ image, name }: ProductImageProps) => {
     if (!image || image.trim() === '') {
       setImageError(true);
       setIsLoading(false);
+      console.log(`No image URL provided for product: ${name}`);
     }
-  }, [image]);
+  }, [image, name]);
 
   return (
     <div className="bg-white rounded-lg p-6 flex items-center justify-center relative">
