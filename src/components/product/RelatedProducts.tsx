@@ -1,9 +1,10 @@
 
 import { Link } from "react-router-dom";
-import { Star } from "lucide-react";
+import { Star, ImageOff } from "lucide-react";
 import { Product } from "@/data/products/types";
 import { formatPriceInINR } from "@/utils/currency";
 import { useState } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface RelatedProductsProps {
   relatedProducts: Product[];
@@ -46,14 +47,22 @@ const RelatedProductCard = ({ product }: { product: Product }) => {
       <div className="border rounded-lg overflow-hidden transition-all hover:shadow-md bg-white">
         <div className="aspect-square overflow-hidden bg-muted relative">
           {isLoading && !imageError && (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-full h-full bg-gray-200 animate-pulse rounded-lg"></div>
+            <Skeleton className="absolute inset-0" />
+          )}
+          
+          {imageError && (
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100">
+              <ImageOff size={24} className="text-gray-400 mb-1" />
+              <span className="text-xs text-gray-500">No image</span>
             </div>
           )}
+          
           <img 
             src={imageError ? placeholderImage : product.image} 
             alt={product.name}
-            className={`w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300 ${isLoading && !imageError ? 'opacity-0' : 'opacity-100'}`}
+            className={`w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300 ${
+              isLoading || imageError ? 'opacity-0 absolute' : 'opacity-100'
+            }`}
             onError={handleImageError}
             onLoad={handleImageLoad}
             loading="lazy"

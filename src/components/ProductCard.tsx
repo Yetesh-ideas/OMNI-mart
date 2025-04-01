@@ -1,11 +1,12 @@
 
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Heart } from "lucide-react";
+import { ShoppingCart, Heart, ImageOff } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
 import { formatPriceInINR } from "@/utils/currency";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface ProductCardProps {
   id: number;
@@ -74,14 +75,22 @@ const ProductCard = ({ id, name, price, image, category, rating }: ProductCardPr
       <div className="border rounded-lg overflow-hidden transition-all hover:shadow-md bg-white">
         <div className="relative aspect-square overflow-hidden bg-muted">
           {isLoading && !imageError && (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-full h-full bg-gray-200 animate-pulse rounded-lg"></div>
+            <Skeleton className="absolute inset-0" />
+          )}
+          
+          {imageError && (
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100">
+              <ImageOff size={32} className="text-gray-400 mb-1" />
+              <span className="text-xs text-gray-500">No image</span>
             </div>
           )}
+          
           <img 
             src={imageError ? placeholderImage : image} 
             alt={name}
-            className={`w-full h-full object-contain p-4 group-hover:scale-105 transition-all duration-300 ${isLoading && !imageError ? 'opacity-0' : 'opacity-100'}`}
+            className={`w-full h-full object-contain p-4 group-hover:scale-105 transition-all duration-300 ${
+              isLoading || imageError ? 'opacity-0 absolute' : 'opacity-100'
+            }`}
             onError={handleImageError}
             onLoad={handleImageLoad}
             loading="lazy"
