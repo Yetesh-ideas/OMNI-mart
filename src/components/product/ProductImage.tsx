@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { Image, ImageOff } from "lucide-react";
+import { ImageOff } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface ProductImageProps {
@@ -27,7 +27,7 @@ const ProductImage = ({ image, name }: ProductImageProps) => {
     setIsLoading(true);
     setImageError(false);
     
-    if (!image) {
+    if (!image || image.trim() === '') {
       setImageError(true);
       setIsLoading(false);
     }
