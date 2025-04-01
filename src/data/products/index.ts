@@ -14,7 +14,7 @@ const filterProductsWithImages = (products: Product[]) => {
   });
 };
 
-// Filter products categories
+// Create filtered versions of each category
 const filteredElectronicsProducts = filterProductsWithImages(electronicsProducts);
 const filteredFashionProducts = filterProductsWithImages(fashionProducts);
 const filteredHomeKitchenProducts = filterProductsWithImages(homeKitchenProducts);
@@ -30,7 +30,7 @@ const allProducts: Product[] = [
   ...filteredBooksProducts
 ];
 
-// Apply filter to category exports as well
+// Export filtered products
 export default allProducts;
 export { filterProductsWithImages };
 export type { Product };
