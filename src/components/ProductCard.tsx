@@ -1,8 +1,8 @@
 
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Heart, ImageOff } from "lucide-react";
+import { ShoppingCart, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
 import { formatPriceInINR } from "@/utils/currency";
@@ -19,6 +19,7 @@ interface ProductCardProps {
 const ProductCard = ({ id, name, price, image, category, rating }: ProductCardProps) => {
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
 
@@ -49,7 +50,22 @@ const ProductCard = ({ id, name, price, image, category, rating }: ProductCardPr
 
   const handleImageError = () => {
     setImageError(true);
+    setIsLoading(false);
   };
+
+  const handleImageLoad = () => {
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    setIsLoading(true);
+    setImageError(false);
+    
+    if (!image) {
+      setImageError(true);
+      setIsLoading(false);
+    }
+  }, [image]);
 
   const placeholderImage = "https://placehold.co/400x400/e6e6e6/999999?text=Product+Image";
 
@@ -57,20 +73,19 @@ const ProductCard = ({ id, name, price, image, category, rating }: ProductCardPr
     <Link to={`/product/${id}`} className="group">
       <div className="border rounded-lg overflow-hidden transition-all hover:shadow-md bg-white">
         <div className="relative aspect-square overflow-hidden bg-muted">
-          {!imageError ? (
-            <img 
-              src={image} 
-              alt={name}
-              className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300"
-              onError={handleImageError}
-            />
-          ) : (
-            <img 
-              src={placeholderImage}
-              alt={name}
-              className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300"
-            />
+          {isLoading && !imageError && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-full h-full bg-gray-200 animate-pulse rounded-lg"></div>
+            </div>
           )}
+          <img 
+            src={imageError ? placeholderImage : image} 
+            alt={name}
+            className={`w-full h-full object-contain p-4 group-hover:scale-105 transition-all duration-300 ${isLoading && !imageError ? 'opacity-0' : 'opacity-100'}`}
+            onError={handleImageError}
+            onLoad={handleImageLoad}
+            loading="lazy"
+          />
           <button 
             onClick={handleWishlistToggle}
             className="absolute top-2 right-2 p-1.5 rounded-full bg-white/80 hover:bg-white shadow-sm z-10"
