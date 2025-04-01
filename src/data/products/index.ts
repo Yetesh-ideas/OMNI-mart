@@ -14,13 +14,20 @@ const filterProductsWithImages = (products: Product[]) => {
   });
 };
 
+// Filter products categories
+const filteredElectronicsProducts = filterProductsWithImages(electronicsProducts);
+const filteredFashionProducts = filterProductsWithImages(fashionProducts);
+const filteredHomeKitchenProducts = filterProductsWithImages(homeKitchenProducts);
+const filteredBeautyProducts = filterProductsWithImages(beautyProducts);
+const filteredBooksProducts = filterProductsWithImages(booksProducts);
+
 // Filter and combine all products from different categories
 const allProducts: Product[] = [
-  ...filterProductsWithImages(electronicsProducts),
-  ...filterProductsWithImages(fashionProducts),
-  ...filterProductsWithImages(homeKitchenProducts),
-  ...filterProductsWithImages(beautyProducts),
-  ...filterProductsWithImages(booksProducts)
+  ...filteredElectronicsProducts,
+  ...filteredFashionProducts,
+  ...filteredHomeKitchenProducts,
+  ...filteredBeautyProducts,
+  ...filteredBooksProducts
 ];
 
 // Apply filter to category exports as well
@@ -28,9 +35,9 @@ export default allProducts;
 export { filterProductsWithImages };
 export type { Product };
 export { 
-  filterProductsWithImages(electronicsProducts) as electronicsProducts, 
-  filterProductsWithImages(fashionProducts) as fashionProducts, 
-  filterProductsWithImages(homeKitchenProducts) as homeKitchenProducts, 
-  filterProductsWithImages(beautyProducts) as beautyProducts, 
-  filterProductsWithImages(booksProducts) as booksProducts 
+  filteredElectronicsProducts as electronicsProducts,
+  filteredFashionProducts as fashionProducts,
+  filteredHomeKitchenProducts as homeKitchenProducts,
+  filteredBeautyProducts as beautyProducts,
+  filteredBooksProducts as booksProducts
 };
